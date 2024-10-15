@@ -5,7 +5,94 @@
     <title>Lissajous</title>
   </head>
   <body>
-    <canvas id="main-canvas" width="400" height="300"></canvas>
+    <div>
+      <div>
+        <fieldset>
+          <legend>Vertical Wave</legend>
+          <label for="v-amp-input">Amplitude:</label>
+          <select id="v-amp-input" name="v-amp">
+            <option value="amp1">1</option>
+            <option value="amp2">2</option>
+            <option value="amp3">3</option>
+            <option value="amp4">4</option>
+            <option value="amp5">5</option>
+            <option value="amp6">6</option>
+          </select>
+          <br><br>
+
+          <label for="v-freq-input">Frequency:</label>
+          <select id="v-freq-input" name="v-freq">
+            <option value="freq1">1</option>
+            <option value="freq2">2</option>
+            <option value="freq3">3</option>
+            <option value="freq4">4</option>
+            <option value="freq5">5</option>
+            <option value="freq6">6</option>
+            <option value="freq7">7</option>
+            <option value="freq8">8</option>
+            <option value="freq9">9</option>
+            <option value="freq10">10</option>
+            <option value="freq11">11</option>
+          </select>
+          <br><br>
+
+          <label for="v-phase-input">Phase:</label>
+          <select id="v-phase-input" name="v-phase">
+            <option value="phase0">0</option>
+            <option value="phase14">Pi / 4</option>
+            <option value="phase13">Pi / 3</option>
+            <option value="phase12">Pi / 2</option>
+            <option value="phase23">2 Pi / 3</option>
+            <option value="phase34">3 Pi / 4</option>
+            <option value="phase1">Pi</option>
+          </select>
+          
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset>
+          <legend>Horizontal Wave</legend>
+          <label for="h-amp-input">Amplitude:</label>
+          <select id="h-amp-input" name="h-amp">
+            <option value="amp1">1</option>
+            <option value="amp2">2</option>
+            <option value="amp3">3</option>
+            <option value="amp4">4</option>
+            <option value="amp5">5</option>
+            <option value="amp6">6</option>
+          </select>
+          <br><br>
+
+          <label for="h-freq-input">Frequency:</label>
+          <select id="h-freq-input" name="h-freq">
+            <option value="freq1">1</option>
+            <option value="freq2">2</option>
+            <option value="freq3">3</option>
+            <option value="freq4">4</option>
+            <option value="freq5">5</option>
+            <option value="freq6">6</option>
+          </select>
+          <br><br>
+
+
+          <label for="h-phase-input">Phase:</label>
+          <select id="h-phase-input" name="h-phase">
+            <option value="phase0">0</option>
+            <option value="phase14">Pi / 4</option>
+            <option value="phase13">Pi / 3</option>
+            <option value="phase12">Pi / 2</option>
+            <option value="phase23">2 Pi / 3</option>
+            <option value="phase34">3 Pi / 4</option>
+            <option value="phase1">Pi</option>
+          </select>
+          
+        </fieldset>
+      </div>
+    </div>
+    <div>
+      <canvas id="main-canvas" width="400" height="300"></canvas>
+    </div>
   </body>
 
   <script src='./lissajous.js'></script>
