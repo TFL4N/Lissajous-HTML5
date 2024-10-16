@@ -37,6 +37,7 @@ class Rectangle {
   
 }
 
+// FILO stack
 class PixelStack {
   #store;
   #first_idx = 0;
@@ -51,6 +52,7 @@ class PixelStack {
   }
 
   push(pixel) {
+    // new pixel replaces oldest pixel
     this.#store[this.#first_idx] = pixel;
 
     // adjust first index
@@ -58,10 +60,20 @@ class PixelStack {
     this.#first_idx %= this.#store.length;
   }
 
-  // idx range is [0,length-1]
   peak(idx) {
+    // idx range is [0,length-1]
     const true_idx = (this.#first_idx + idx) % this.#store.length;
     return this.#store[true_idx];
+  }
+
+  fill(val) {
+    this.#store.fill(val);
+  }
+
+  shift() {
+    // move starting position forward
+    this.#first_idx += 1;
+    this.#first_idx %= this.#store.length;
   }
 
   [Symbol.iterator]() {
@@ -163,9 +175,13 @@ function drawPhasorCircle(ctx, center, radius, phase) {
 //
 const y_phasor = new Phasor(200, Math.PI / 5, 0);
 const x_phasor = new Phasor(200, Math.PI / 5, 0);
+const trail = new PixelStack(300);
+
 const y_bounds = new Rectangle();
 const x_bounds = new Rectangle();
 const display_bounds = new Rectangle();
+
+
 const canvas = document.getElementById('main-canvas');
 const ctx = canvas.getContext('2d');
 
@@ -187,6 +203,9 @@ function refreshCanvasBounds() {
 
   canvas.height = display_bounds.height + x_bounds.height;
   canvas.width = display_bounds.width + y_bounds.width;
+
+  // empty trail
+  trail.fill(null);
 }
 
 
@@ -260,17 +279,22 @@ on_change_fcn();
 //
 // Animation
 //
-refreshCanvasBounds();
-const trail = new PixelStack(300, display_bounds.center);
 let t = 0;
 let dt = 0.01;
 function animate() {
   t += dt;
-  
-  trail.push({
+
+  const new_px = {
     x: x_phasor.valueAt(t) + display_bounds.center.x,
     y: -y_phasor.valueAt(t) + display_bounds.center.y
-  });
+  };
+
+  // if trail empty, make every pixel this starting position
+  if(trail.peak(0) == null) {
+    trail.fill(new_px);
+  } else {
+    trail.push(new_px);
+  }
   
 
   //////////////////
@@ -298,7 +322,6 @@ function animate() {
 
   // trail
   const trail_start = trail.peak(0);
-  
   ctx.beginPath();
   ctx.moveTo(trail_start.x, trail_start.y);
   for(const px of trail) {
@@ -306,6 +329,7 @@ function animate() {
   }
   ctx.strokeStyle = "green";
   ctx.stroke();
+  
 
   // Request the next animation frame
   requestAnimationFrame(animate);
